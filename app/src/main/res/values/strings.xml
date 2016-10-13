@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DrawableRatingBar</string>
+    <string name="drawableratingbar_title">图片评级</string>
+</resources>
