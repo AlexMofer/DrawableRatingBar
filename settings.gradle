@@ -1,1 +1,1 @@
-include ':app', ':drawableratingbar'
+include ':app'

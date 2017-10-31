@@ -1,9 +1,11 @@
 package am.example.drawableratingbar;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -12,26 +14,36 @@ import android.widget.Switch;
 import am.widget.drawableratingbar.DrawableRatingBar;
 
 
-public class DrawableRatingBarActivity extends BaseActivity implements
+public class DrawableRatingBarActivity extends AppCompatActivity implements
         RadioGroup.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener,
         SeekBar.OnSeekBarChangeListener{
 
     private DrawableRatingBar dbrDemo;
     private RadioGroup rgGravity1, rgGravity2, rgGravity3;
-    @Override
-    protected int getContentViewLayoutResources() {
-        return R.layout.activity_drawableratingbar;
-    }
 
     @Override
-    protected void initResource(Bundle savedInstanceState) {
-        setSupportActionBar(R.id.drb_toolbar);
-        dbrDemo = (DrawableRatingBar) findViewById(R.id.drb_rb_stars);
-        rgGravity1 = (RadioGroup) findViewById(R.id.drb_rg_gravity_1);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_drawableratingbar);
+        Toolbar mToolbar = findViewById(R.id.drb_toolbar);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            }
+        }
+        dbrDemo = findViewById(R.id.drb_rb_stars);
+        rgGravity1 = findViewById(R.id.drb_rg_gravity_1);
         rgGravity1.setOnCheckedChangeListener(this);
-        rgGravity2 = (RadioGroup) findViewById(R.id.drb_rg_gravity_2);
+        rgGravity2 = findViewById(R.id.drb_rg_gravity_2);
         rgGravity2.setOnCheckedChangeListener(this);
-        rgGravity3 = (RadioGroup) findViewById(R.id.drb_rg_gravity_3);
+        rgGravity3 = findViewById(R.id.drb_rg_gravity_3);
         rgGravity3.setOnCheckedChangeListener(this);
         ((Switch) findViewById(R.id.drb_sh_manually)).setOnCheckedChangeListener(this);
         ((Switch) findViewById(R.id.drb_sh_touchable)).setOnCheckedChangeListener(this);
@@ -159,9 +171,5 @@ public class DrawableRatingBarActivity extends BaseActivity implements
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
-    }
-
-    public static void startActivity(Context context) {
-        context.startActivity(new Intent(context, DrawableRatingBarActivity.class));
     }
 }
