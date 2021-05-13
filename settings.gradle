@@ -1,1 +1,3 @@
+rootProject.name = "DrawableRatingBar"
 include ':app'
+include ':drawableratingbar'
